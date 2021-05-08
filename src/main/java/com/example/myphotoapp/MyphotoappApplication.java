@@ -7,7 +7,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class MyphotoappApplication {
 
 	public static void main(String[] args) {
+
 		SpringApplication.run(MyphotoappApplication.class, args);
 	}
 
 }
+ 
