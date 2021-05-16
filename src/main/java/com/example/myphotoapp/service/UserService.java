@@ -13,28 +13,30 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    public User getUser(){
-        return  userRepository.getUser();
-    }
 
     public User saveUser(User user) {
-        return userRepository.saveUser(user);
+        return userRepository.save(user);
 
     }
 
-    public List<User> getAllUsers() {
-        return userRepository.getAllUsers();
+        public List<User> getAllUsers() {
+        return userRepository.findAll();
     }
 
-    public User getUserById(int userId) {
-        return userRepository.getUserById(userId);
+    public User updateUser(User user) {
+        return userRepository.save(user);
     }
 
-    public User updateUser(int userId, User user) {
-        return userRepository.updateUser(userId,user);
+    public void deleteUser(String userId) {
+        userRepository.deleteById(userId);
     }
 
-    public User deleteUser(int userId) {
-        return userRepository.deleteUser(userId);
+    public List<User> getByAddress(String address) {
+        return userRepository.findAllByAddress(address);
+    }
+
+
+    public User getById(String userId) {
+        return userRepository.findById(userId).get();
     }
 }
