@@ -1,13 +1,22 @@
 package com.example.myphotoapp.model;
 
+import com.example.myphotoapp.validations.ValidName;
+import org.hibernate.validator.constraints.Length;
 import org.springframework.data.annotation.Id;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotEmpty;
 
 public class User {
 
     @Id
     private String id;
+    @NotEmpty @ValidName
     private String name;
+    @Length(max = 35)
     private String address;
+    @Min(value=13) @Max(value = 80)
     private int age;
 
     public User(String name, String address, int age) {
