@@ -1,12 +1,16 @@
 package com.example.myphotoapp.resource;
 
 import com.example.myphotoapp.Exception.RestrictedInfoException;
+import com.example.myphotoapp.model.FirebaseUser;
 import com.example.myphotoapp.model.User;
+import com.example.myphotoapp.service.FirebaseService;
 import com.example.myphotoapp.service.UserService;
+import com.google.firebase.auth.FirebaseAuthException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -16,9 +20,17 @@ public class UserResource {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private FirebaseService firebaseService;
+
     @PostMapping
-    public User saveUser(@RequestBody @Valid User user){
-        return userService.saveUser(user);
+    public User saveUser(@RequestBody @Valid User user, @RequestHeader(name="idToken")String idToken) throws IOException, FirebaseAuthException {
+        FirebaseUser firebaseUseruser = firebaseService.authenticate(idToken);
+        if(firebaseUseruser != null)
+            return userService.saveUser(user);
+        else
+            return null;
+
     }
 
     @GetMapping
